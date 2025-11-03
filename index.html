@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第5期Z式プロドラ横乗りインストラクター養成講座 11月振り返りテスト</title>
+    
+    <style>
+        /* ------------------------------------- */
+        /* 1. 通常表示のCSS (省略) */
+        /* ------------------------------------- */
+        body {
+            font-family: 'Hiragino Kaku Gothic Pro', 'Meiryo', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #fcebeb 0%, #ebf7fc 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #e84a5f;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #fcc0c0;
+            font-size: 1.8em;
+            line-height: 1.3;
+        }
+        
+        .question-block {
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #ffffff;
+            border: 2px solid #a8dadc;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        strong { color: #377ba8; }
+        input[type="text"] {
+            padding: 8px; border: 1px solid #ccc; border-radius: 5px;
+            width: 90%; max-width: 250px; box-sizing: border-box;
+        }
+        
+        .ox-group { display: flex; gap: 10px; margin-top: 10px; }
+        .ox-group input[type="radio"] { display: none; }
+        .ox-group label {
+            flex-grow: 1; text-align: center; padding: 10px 15px;
+            border: 2px solid #ccc; border-radius: 20px; cursor: pointer;
+            font-weight: bold; background-color: #f0f0f0; color: #555;
+            display: block;
+        }
+        
+        .ox-group input[value="true"]:checked + label { background-color: #a8dadc; border-color: #377ba8; color: #377ba8; box-shadow: 0 0 5px rgba(55, 123, 168, 0.5); }
+        .ox-group input[value="false"]:checked + label { background-color: #ffcccc; border-color: #e84a5f; color: #e84a5f; box-shadow: 0 0 5px rgba(232, 74, 95, 0.5); }
+
+        button {
+            display: block; width: 100%; max-width: 300px; margin: 20px auto;
+            padding: 12px 20px; border: none; border-radius: 25px;
+            cursor: pointer; font-size: 1.1em; font-weight: bold;
+        }
+
+        #checkAnswerButton { background-color: #ff9f1c; color: white; box-shadow: 0 4px #e08e00; }
+        #printButton { background-color: #27ae60; color: white; box-shadow: 0 4px #219d52; max-width: 250px; margin: 10px auto 20px auto; }
+
+        .result { text-align: center; margin-top: 30px; padding: 20px; background-color: #f7a0a0; color: #fff; font-weight: bold; border-radius: 10px; display: none; }
+        .result p { font-size: 1.4em; margin: 0; }
+        
+        [id^="feedback"] span[style*="green"] { color: #2ecc71 !important; font-weight: bold; }
+        [id^="feedback"] span[style*="red"] { color: #e74c3c !important; font-weight: bold; }
+
+        /* ------------------------------------- */
+        /* 2. 印刷用スタイル (行間重視) */
+        /* ------------------------------------- */
+
+        @page {
+            size: A4;
+            margin: 1.0cm; /* 余白を広げ、ゆとりを持たせる */
+            @top-left { content: none; }
+            @top-right { content: none; }
+            @bottom-left { content: none; }
+            @bottom-right { content: none; }
+        }
+        
+        @media print {
+            * {
+                box-sizing: border-box !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                margin: 0 !important; 
+                padding: 0 !important; 
+            }
+            body {
+                margin: 0;
+                padding: 0;
+                font-size: 11pt; /* 文字サイズを標準に戻す */
+                width: 100%;
+                line-height: 1.4; /* 行間を広げる */
+            }
+            
+            .container {
+                max-width: 100% !important; 
+                overflow: hidden !important; 
+                box-shadow: none !important;
+                background: none !important;
+            }
+
+            button, #checkAnswerButton, .result { display: none !important; }
+
+            h1 {
+                font-size: 15pt !important; /* 大きくする */
+                line-height: 1.3 !important;
+                padding: 10pt 0 8pt 0 !important; /* 余白を増やす */
+                border-bottom: 2px solid #333 !important;
+                color: #000 !important;
+            }
+
+            .question-block {
+                margin-bottom: 15pt !important; /* 問題ブロック間の余白を大きく */
+                padding: 8pt !important; /* 問題ブロック内の余白を大きく */
+                border: 1px solid #ccc !important;
+                background-color: #fff !important;
+            }
+            
+            .question-block p {
+                font-size: 11pt !important;
+                margin: 0 0 5pt 0 !important; /* 問題文と入力欄の間に余白 */
+                line-height: 1.5 !important;
+            }
+
+            input[type="text"] {
+                border-bottom-width: 1px !important;
+                width: 200px !important; /* 入力欄を長くする */
+                padding: 0 !important;
+                line-height: 1.5;
+            }
+            .ox-group { gap: 10pt !important; margin-top: 5pt !important; } /* 余白を戻す */
+            .ox-group label {
+                padding: 5pt 8pt !important;
+                font-size: 10pt !important;
+                border-width: 1px !important;
+            }
+            
+            #printResult {
+                display: block !important;
+                text-align: left;
+                margin-top: 20pt !important; /* 上の余白を大きく */
+                border-top: 1px solid #333;
+                padding-top: 15pt; 
+            }
+            #printResult p {
+                font-size: 11pt !important;
+                color: #333 !important;
+                margin: 0 0 5pt 0 !important;
+                line-height: 1.3;
+            }
+            #printResult p:nth-child(2) {
+                font-size: 13pt !important;
+                font-weight: bold;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>第5期Z式プロドラ横乗りインストラクター養成講座<br>11月振り返りテスト</h1>
+
+        <form id="quizForm">
+            </form>
+
+        <button onclick="checkAnswers()" id="checkAnswerButton">解答の確認</button>
+
+        <div id="results" class="result"></div>
+        <div id="printResult" style="display: none;"></div>
+        
+        <button id="printButton" onclick="window.print()" style="display: none;">この結果を印刷 (PDF)</button>
+    </div>
+
+    <script>
+        // 全11問の問題と解答を定義します
+        const questions = [
+            { 
+                id: 1, 
+                text: "【指導者のマナー＆モラル】横乗り指導者としてやってはいけないことをまとめた「横乗り指導者NG10か条」は下記の通りである。（　　）に入る言葉を答えよ。<br>・我流を押し付けない（自分の価値観を押し付けない）<br>・(　　)しない<br>・会社批判や不平不満を語らない<br>・否定的な言い方をしない、イライラをあらわさない<br>・頭ごなしに叱らない<br>・プライバシーを侵害しない<br>・待遇面や賃金の話題は無責任に語らない<br>・運転に集中し辛くなる言動をしない<br>・小さな声で話さない<br>・命令口調で話さない", 
+                type: 'text', 
+                answer: "居眠り" 
+            },
+            { id: 2, text: "【指導者のマナー＆モラル】第一印象を良くするには「表情・態度・（　　　　）・言葉遣い・話し方」が大切である。（　　）に入る言葉を答えよ。", type: 'text', answer: "振る舞い" },
+            { id: 3, text: "【品質とマナー＆モラル】トラックドライバーが担っている責任は、「顧客から預かった荷物を、（　  　  ）で、相手に届ける責任」である。（　　）に入る言葉を答えよ。", type: 'text', answer: "そのままの姿" },
+            { id: 4, text: "【品質とマナー＆モラル】品質を保つために、日頃からプロのドライバーとして意識することは、「（　　　　　）いる意識」である。（　　）に入る言葉を答えよ。", type: 'text', answer: "見られて" },
+            { id: 5, text: "【職場の健康管理】健康診断は企業が受診させる（　　）があり、従業員は受診する（　　）がある。※（　　）内には同じ文字が入ります。（　　）に入る言葉を答えよ。", type: 'text', answer: "義務" },
+            { id: 6, text: "【職場の健康管理】初期の高血圧、高脂血症、糖尿病等の生活習慣病は、自覚症状がないため何と呼ばれているでしょうか？", type: 'text', answer: "サイレントキラー" },
+            { id: 7, text: "【健康管理（生活習慣病とコミュニケーション）】日本人の主要な死因となっている三大疾病は心筋梗塞、脳卒中、あと1つを答えよ。", type: 'text', answer: "がん" },
+            { id: 8, text: "【健康管理（生活習慣病とコミュニケーション）】「よくやってるね」と声をかけるのは、業務を円滑にする3つの承認のうち、（　　）承認にあたる。（　　）に入る言葉を答えよ。", type: 'text', answer: "行動" },
+            { id: 9, text: "【ハラスメント】無自覚のハラスメントを（　　　）ハラスメントという。（　　）に入る言葉を答えよ。", type: 'text', answer: "アンコンシャス" },
+            { id: 10, text: "【道路交通法基礎】横断歩道等の直前、停止線の直前で約（　　）mくらい手前からブレーキ等で減速して準備する。（　　）に入る数字を答えよ。", type: 'text', answer: "30" },
+            { id: 11, text: "【道路交通法基礎】交通整理が行われていない交差点で、道路の幅がほぼ同じ場合、右方から来る車が優先される。〇か×か。", type: 'ox', answer: false, explanation: "正しくは左方優先です" } 
+        ];
+
+        function renderQuiz() {
+            const quizForm = document.getElementById('quizForm');
+            quizForm.innerHTML = questions.map(q => {
+                let inputHtml = '';
+                if (q.type === 'text') {
+                    inputHtml = `<input type="text" id="q${q.id}" name="q${q.id}" placeholder="単語または数字を記入" value="">`;
+                } else if (q.type === 'ox') {
+                    inputHtml = `
+                        <div class="ox-group">
+                            <input type="radio" id="q${q.id}_true" name="q${q.id}" value="true">
+                            <label for="q${q.id}_true">○ (正)</label>
+                            
+                            <input type="radio" id="q${q.id}_false" name="q${q.id}" value="false">
+                            <label for="q${q.id}_false">× (誤)</label>
+                        </div>
+                    `;
+                }
+
+                return `
+                    <div class="question-block">
+                        <p><strong>問${q.id}:</strong> ${q.text}</p>
+                        ${inputHtml}
+                        <div id="feedback${q.id}" style="font-size: 0.9em; margin-top: 5px; min-height: 20px;"></div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function checkAnswers() {
+            let score = 0;
+            const printResultDiv = document.getElementById('printResult');
+            
+            // 現在日時の取得とフォーマット
+            const now = new Date();
+            const dateOptions = { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric', 
+                hour: '2-digit', 
+                minute: '2-digit',
+                hour12: false
+            };
+            const formattedDate = now.toLocaleString('ja-JP', dateOptions);
+
+            questions.forEach(q => {
+                const feedbackElement = document.getElementById(`feedback${q.id}`);
+                feedbackElement.innerHTML = ''; 
+
+                let isCorrect = false;
+
+                if (q.type === 'text') {
+                    const inputElement = document.getElementById(`q${q.id}`);
+                    const userAnswer = inputElement.value.trim().toLowerCase();
+                    const correctAnswer = q.answer.toString().trim().toLowerCase();
+                    
+                    inputElement.setAttribute('value', inputElement.value); 
+                    
+                    if (userAnswer === correctAnswer) {
+                        isCorrect = true;
+                    }
+                } else if (q.type === 'ox') {
+                    const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
+                    if (selected) {
+                        const userAnswerBool = selected.value === 'true';
+                        if (userAnswerBool === q.answer) {
+                            isCorrect = true;
+                        }
+                    }
+                }
+
+                if (isCorrect) {
+                    score++;
+                    feedbackElement.innerHTML = `<span style="color: green;">✅ 正解です！</span>`;
+                } else {
+                    let correctDisplay = q.type === 'text' ? `正解: "${q.answer}"` : `正解: ${q.answer ? '○ (正)' : '× (誤)'}`;
+                    
+                    // 問11の場合に解説を追加
+                    if (q.id === 11 && q.explanation) {
+                        correctDisplay += ` (${q.explanation})`;
+                    }
+
+                    feedbackElement.innerHTML = `<span style="color: red;">❌ 不正解です。 (${correctDisplay})</span>`;
+                }
+            });
+
+            const resultsDiv = document.getElementById('results');
+            const printBtn = document.getElementById('printButton');
+
+            resultsDiv.style.display = 'block';
+            resultsDiv.innerHTML = `
+                <p style="margin: 0; font-size: 1.0em; color: #333;">回答日時: ${formattedDate}</p>
+                <p style="margin: 5px 0 0 0; font-size: 1.4em;">🌟 あなたの正解数は <strong>${score} / ${questions.length}</strong> です！</p>
+                <p style="margin: 5px 0 0 0; font-size: 1.1em;">お疲れ様でした！</p>
+            `;
+            
+            printResultDiv.innerHTML = `
+                <p>回答日時: ${formattedDate}</p>
+                <p>正解数: ${score} / ${questions.length}</p>
+                <p>お疲れ様でした！</p>
+            `;
+
+            printBtn.style.display = 'block';
+
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        renderQuiz();
+    </script>
+
+</body>
+</html>
